@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FHD 신모델2 출시 검토 — 분석 가능성 및 대안 보고서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1b1e2b;
+    --ink-soft: #3e4259;
+    --ink-muted: #868a9f;
+    --bg: #f5f4f0;
+    --bg-warm: #eceade;
+    --white: #ffffff;
+    --rule: #d5d2c8;
+    --rule-light: #e8e6de;
+
+    --red: #c0392b;
+    --red-bg: #fdf2f0;
+    --red-border: #f0c4be;
+
+    --teal: #1a7a6d;
+    --teal-bg: #eef7f5;
+    --teal-border: #b5ddd6;
+
+    --amber: #b8860b;
+    --amber-bg: #fdf8ed;
+    --amber-border: #e5d5a0;
+
+    --blue: #2c5ea0;
+    --blue-bg: #eef3fa;
+    --blue-border: #b3cce6;
+
+    --slate: #5a5e72;
+    --slate-bg: #f0f0f2;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 64px 48px 120px;
+  }
+
+  /* ── Header ── */
+  .hdr {
+    margin-bottom: 56px;
+    position: relative;
+  }
+  .hdr::after {
+    content: '';
+    display: block;
+    margin-top: 32px;
+    height: 3px;
+    background: var(--ink);
+    width: 100%;
+  }
+  .hdr-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+  }
+  .hdr-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--red);
+    background: var(--red-bg);
+    border: 1px solid var(--red-border);
+    padding: 4px 12px; border-radius: 3px;
+  }
+  .hdr-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--ink-muted);
+    text-align: right; line-height: 1.5;
+  }
+  .hdr h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px; font-weight: 700;
+    line-height: 1.2; color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .hdr-sub {
+    font-size: 15px; color: var(--ink-soft);
+    font-weight: 300; line-height: 1.7;
+  }
+
+  /* ── Verdict Banner ── */
+  .verdict {
+    background: var(--ink);
+    color: #fff;
+    padding: 36px 40px;
+    border-radius: 6px;
+    margin-bottom: 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .verdict::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(192,57,43,0.12);
+  }
+  .verdict-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 12px;
+  }
+  .verdict-text {
+    font-size: 16.5px;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.92);
+    font-weight: 300;
+    position: relative; z-index: 1;
+  }
+  .verdict-text strong { font-weight: 600; color: #fff; }
+  .verdict-text .hl {
+    background: rgba(192,57,43,0.25);
+    padding: 1px 6px; border-radius: 3px;
+    color: #ffd6d0;
+    font-weight: 500;
+  }
+
+  /* ── Sections ── */
+  .sec { margin-bottom: 56px; }
+  .sec-head {
+    display: flex; align-items: baseline; gap: 16px;
+    margin-bottom: 20px; padding-bottom: 10px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .sec-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px; font-weight: 700;
+    color: var(--rule); line-height: 1;
+  }
+  .sec-title {
+    font-size: 20px; font-weight: 700; color: var(--ink);
+  }
+  .sec p {
+    font-size: 14.5px; color: var(--ink-soft);
+    line-height: 1.85; margin-bottom: 16px;
+  }
+  .sec p strong { color: var(--ink); font-weight: 600; }
+
+  /* ── Reason Cards ── */
+  .reason-stack { margin: 24px 0; }
+  .reason {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--red);
+    border-radius: 0 6px 6px 0;
+    padding: 22px 26px;
+    margin-bottom: 14px;
+  }
+  .reason-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; font-weight: 600;
+    color: var(--red); margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+  .reason-title {
+    font-size: 15px; font-weight: 700;
+    color: var(--ink); margin-bottom: 8px;
+  }
+  .reason-body {
+    font-size: 13.5px; color: var(--ink-soft); line-height: 1.8;
+  }
+  .reason-body code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; background: var(--bg);
+    padding: 1px 5px; border-radius: 2px;
+  }
+
+  /* ── Evidence Box ── */
+  .evidence {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 28px 32px;
+    margin: 24px 0;
+  }
+  .evidence-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 14px;
+  }
+  .ev-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .ev-card {
+    text-align: center;
+    padding: 20px 12px;
+    border-radius: 6px;
+    background: var(--bg);
+  }
+  .ev-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; font-weight: 700;
+    line-height: 1;
+  }
+  .ev-num.zero { color: var(--red); }
+  .ev-num.has { color: var(--teal); }
+  .ev-num.caution { color: var(--amber); }
+  .ev-unit {
+    font-size: 12px; color: var(--ink-muted);
+    margin-top: 6px; font-weight: 500;
+  }
+  .ev-desc {
+    font-size: 11.5px; color: var(--ink-soft);
+    margin-top: 8px; line-height: 1.5;
+  }
+
+  /* ── Alternative Cards ── */
+  .alt-stack { margin: 24px 0; }
+  .alt {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .alt-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--rule-light);
+    background: var(--bg);
+  }
+  .alt-badge {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 700;
+    margin-right: 14px; flex-shrink: 0;
+  }
+  .alt-badge.a { background: var(--teal-bg); color: var(--teal); border: 1px solid var(--teal-border); }
+  .alt-badge.b { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
+  .alt-badge.c { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+  .alt-badge.d { background: var(--slate-bg); color: var(--slate); border: 1px solid var(--rule); }
+
+  .alt-title-wrap { display: flex; align-items: center; gap: 14px; }
+  .alt-title { font-size: 15px; font-weight: 700; color: var(--ink); }
+  .alt-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    padding: 3px 8px; border-radius: 3px;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .alt-tag.ref { background: var(--teal-bg); color: var(--teal); }
+  .alt-tag.struct { background: var(--blue-bg); color: var(--blue); }
+  .alt-tag.calc { background: var(--amber-bg); color: var(--amber); }
+  .alt-tag.action { background: var(--slate-bg); color: var(--slate); }
+
+  .alt-body {
+    padding: 20px 24px;
+  }
+  .alt-body p {
+    font-size: 13.5px; color: var(--ink-soft);
+    line-height: 1.8; margin-bottom: 12px;
+  }
+  .alt-body p strong { color: var(--ink); }
+
+  .alt-output {
+    background: var(--bg);
+    border: 1px solid var(--rule-light);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin-top: 8px;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .alt-output strong { color: var(--ink); }
+
+  /* ── Data Inventory (compact) ── */
+  .data-compact {
+    margin: 24px 0;
+  }
+  .data-block {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .data-block-head {
+    padding: 12px 20px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .data-block-title {
+    font-size: 14px; font-weight: 700; color: var(--ink);
+  }
+  .data-block-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    padding: 3px 8px; border-radius: 3px;
+    letter-spacing: 1px;
+  }
+  .data-block-body {
+    padding: 14px 20px;
+    font-size: 13px; color: var(--ink-soft); line-height: 1.75;
+  }
+  .data-block-body code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px; background: var(--bg);
+    padding: 1px 5px; border-radius: 2px; color: var(--ink);
+  }
+
+  /* ── Comparison Table ── */
+  .tbl-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    margin: 24px 0;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th {
+    background: var(--ink); color: #fff;
+    padding: 12px 16px; text-align: left;
+    font-weight: 600; font-size: 11.5px;
+  }
+  thead th:first-child { border-radius: 5px 0 0 0; }
+  thead th:last-child { border-radius: 0 5px 0 0; }
+  tbody td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--rule-light);
+    vertical-align: top;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--bg); }
+
+  .status-yes { color: var(--teal); font-weight: 700; }
+  .status-no { color: var(--red); font-weight: 700; }
+  .status-partial { color: var(--amber); font-weight: 700; }
+
+  /* ── Callout ── */
+  .callout {
+    padding: 22px 26px;
+    border-radius: 6px;
+    margin: 20px 0;
+  }
+  .callout.rec {
+    background: var(--teal-bg);
+    border: 1px solid var(--teal-border);
+  }
+  .callout.warn {
+    background: var(--amber-bg);
+    border: 1px solid var(--amber-border);
+  }
+  .callout-title {
+    font-size: 13px; font-weight: 700; margin-bottom: 6px;
+  }
+  .callout.rec .callout-title { color: var(--teal); }
+  .callout.warn .callout-title { color: var(--amber); }
+  .callout-text {
+    font-size: 13px; color: var(--ink-soft); line-height: 1.8;
+  }
+  .callout-text strong { color: var(--ink); }
+
+  /* ── Conclusion ── */
+  .conclusion {
+    background: var(--white);
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    padding: 36px 40px;
+    margin-top: 56px;
+  }
+  .conclusion-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--red); margin-bottom: 14px;
+  }
+  .conclusion-text {
+    font-size: 15.5px; color: var(--ink);
+    line-height: 1.85; font-weight: 400;
+  }
+  .conclusion-text strong { font-weight: 700; }
+
+  .footer {
+    margin-top: 64px; padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--ink-muted);
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 36px 20px 80px; }
+    .hdr h1 { font-size: 26px; }
+    .ev-grid { grid-template-columns: 1fr; }
+    .hdr-top { flex-direction: column; gap: 12px; }
+  }
+
+  @media print {
+    body { background: #fff; }
+    .verdict { break-inside: avoid; }
+    .reason, .alt { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="hdr">
+    <div class="hdr-top">
+      <span class="hdr-badge">Feasibility Review</span>
+      <div class="hdr-meta">
+        2025.02 · v4.0<br>
+        TV사업부 · 경쟁분석
+      </div>
+    </div>
+    <h1>동남아 FHD 신모델2 추가 출시 검토<br>분석 가능성 및 대안 보고서</h1>
+    <p class="hdr-sub">
+      2026년 FHD 세그먼트에 신모델을 1개 추가(총 2모델) 출시할 경우의
+      판매량·매출·이익 영향을 데이터 기반으로 예측할 수 있는지 검토하고,
+      불가능한 부분에 대한 대안 접근법을 제안합니다.
+    </p>
+  </header>
+
+  <!-- ═══ VERDICT ═══ -->
+  <div class="verdict">
+    <div class="verdict-label">Executive Verdict</div>
+    <div class="verdict-text">
+      FHD 세그먼트에서 복수 모델 판매 이력이 있는 법인은 <span class="hl">SEIN 1곳뿐</span>이며,
+      이 사례도 규모(합산 9,600대)와 설계(동시 출시, 서픽스 변형)에서 분석 의미가 없어
+      <strong>유효한 복수 모델 출시 사례는 사실상 0건입니다.</strong>
+      나머지 모든 법인은 동일한 단일 모델 패턴을 보여 법인 간 비교도 불가합니다.
+      <strong>ML·통계 모두 학습 사례 부재로 신뢰성 있는 예측이 불가능합니다.</strong>
+      <br><br>
+      다만, 타 해상도(UHD 등) 레퍼런스 분석, FHD 시장 구조 진단, 손익분기 역산,
+      그리고 <strong>소규모 파일럿 운영</strong>을 통해
+      의사결정에 필요한 근거를 만들 수 있습니다.
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 1: 분석 불가 사유 ═══ -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title">분석 불가 사유</span>
+    </div>
+
+    <p>
+      FHD 세그먼트에 대해 "2모델 출시 시 판매량/매출/이익이 어떻게 되는가"를
+      데이터 기반으로 예측할 수 없는 이유는 다음과 같습니다.
+    </p>
+
+    <!-- Evidence -->
+    <div class="evidence">
+      <div class="evidence-label">FHD 현황 요약</div>
+      <div class="ev-grid">
+        <div class="ev-card">
+          <div class="ev-num caution">1건*</div>
+          <div class="ev-unit">FHD 복수 모델 판매 법인</div>
+          <div class="ev-desc">SEIN 1곳에서만 발생<br><strong>분석 의미 없음</strong> (하단 상세)</div>
+        </div>
+        <div class="ev-card">
+          <div class="ev-num zero">0건</div>
+          <div class="ev-unit">유효한 비교 가능 사례</div>
+          <div class="ev-desc">SEIN 사례도 규모·설계 부적합<br>나머지 법인은 모두 1모델</div>
+        </div>
+        <div class="ev-card">
+          <div class="ev-num has">N건</div>
+          <div class="ev-unit">UHD 등 타 해상도 사례</div>
+          <div class="ev-desc">다른 해상도에서는<br>복수 신모델 출시 이력 존재</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEIN 사례 상세 -->
+    <div style="background:#fff;border:1px solid #d5d2c8;border-left:4px solid #b8860b;border-radius:0 6px 6px 0;padding:24px 28px;margin:24px 0;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:1.5px;color:#b8860b;margin-bottom:10px;">유일한 FHD 복수 모델 사례: SEIN (인도네시아)</div>
+      <p style="font-size:13.5px;color:#3e4259;line-height:1.8;margin-bottom:14px;">
+        2025년 FHD 신모델 중 <strong>인치 × 시리즈</strong> 기준으로 동일 키에 item이 2개 이상인 법인은 SEIN이 유일합니다.
+        SEIN은 43" F6000 시리즈에서 3개 모델을 판매했습니다:
+      </p>
+      <div style="overflow-x:auto;margin:12px 0;border:1px solid #e8e6de;border-radius:4px;">
+        <table style="width:100%;font-size:12.5px;border-collapse:collapse;">
+          <thead><tr>
+            <th style="background:#1b1e2b;color:#fff;padding:10px 14px;text-align:left;font-size:11px;">모델명 (item)</th>
+            <th style="background:#1b1e2b;color:#fff;padding:10px 14px;text-align:left;font-size:11px;">인치</th>
+            <th style="background:#1b1e2b;color:#fff;padding:10px 14px;text-align:left;font-size:11px;">출시월</th>
+            <th style="background:#1b1e2b;color:#fff;padding:10px 14px;text-align:right;font-size:11px;">총 판매수량</th>
+            <th style="background:#1b1e2b;color:#fff;padding:10px 14px;text-align:left;font-size:11px;">비고</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td style="padding:9px 14px;border-bottom:1px solid #e8e6de;">UA43F6000FK<strong>L</strong>XD</td>
+              <td style="padding:9px 14px;border-bottom:1px solid #e8e6de;">43"</td>
+              <td style="padding:9px 14px;border-bottom:1px solid #e8e6de;">—</td>
+              <td style="padding:9px 14px;border-bottom:1px solid #e8e6de;text-align:right;">—</td>
+              <td style="padding:9px 14px;border-bottom:1px solid #e8e6de;color:#868a9f;font-size:11.5px;">서픽스 차이 (L vs X)</td>
+            </tr>
+            <tr>
+              <td style="padding:9px 14px;border-bottom:1px solid #e8e6de;">UA43F6000FK<strong>X</strong>XD</td>
+              <td style="padding:9px 14px;border-bottom:1px solid #e8e6de;">43"</td>
+              <td style="padding:9px 14px;border-bottom:1px solid #e8e6de;">5월</td>
+              <td style="padding:9px 14px;border-bottom:1px solid #e8e6de;text-align:right;"><strong>7,200대</strong></td>
+              <td style="padding:9px 14px;border-bottom:1px solid #e8e6de;color:#868a9f;font-size:11.5px;">동일 시리즈, 서픽스만 다름</td>
+            </tr>
+            <tr>
+              <td style="padding:9px 14px;">UA43F<strong>E60E</strong>FKXXD</td>
+              <td style="padding:9px 14px;">43"</td>
+              <td style="padding:9px 14px;">5월</td>
+              <td style="padding:9px 14px;text-align:right;"><strong>2,400대</strong></td>
+              <td style="padding:9px 14px;color:#868a9f;font-size:11.5px;">다른 시리즈 (FE60E)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:#3e4259;line-height:1.8;margin-top:14px;"><strong>이 사례로 카니발라이제이션 분석이 불가능한 이유:</strong></p>
+      <div style="margin-top:8px;padding-left:16px;border-left:3px solid #2c5ea0;font-size:12.5px;color:#3e4259;line-height:1.75;">
+        <p style="margin:4px 0;"><strong>① 수량 규모 부족:</strong> 합산 약 9,600대로, 카니발 효과를 통계적으로 분리하기에 모수가 작음.</p>
+        <p style="margin:4px 0;"><strong>② 서픽스 변형 가능성:</strong> F6000FKLXD와 F6000FKXXD는 서픽스만 다르며, 사실상 동일 모델의 지역/유통 변형일 가능성.</p>
+        <p style="margin:4px 0;"><strong>③ 동시 출시:</strong> 두 모델 모두 5월 출시. 기존 모델 대비 "추가 출시"의 전후 비교 설계 자체가 불가.</p>
+        <p style="margin:4px 0;"><strong>④ 단일 법인 단일 사례:</strong> SEIN 1곳에서만 발생하여 법인 간 비교 불가.</p>
+      </div>
+      <div style="background:#fdf2f0;border:1px solid #f0c4be;border-radius:4px;padding:12px 16px;margin-top:14px;font-size:12.5px;color:#1b1e2b;line-height:1.6;">
+        <strong>결론:</strong> SEIN 사례는 규모·설계 모두에서 "2모델 출시 효과" 검증에 부적합.
+        FHD에서 의미 있는 복수 모델 출시 사례는 <strong>사실상 0건</strong>으로 판단.
+      </div>
+    </div>
+
+    <!-- Reasons -->
+    <div class="reason-stack">
+      <div class="reason">
+        <div class="reason-num">사유 1</div>
+        <div class="reason-title">유효한 학습 사례 부재</div>
+        <div class="reason-body">
+          ML은 과거 패턴을 학습하여 예측합니다. FHD에서 복수 모델을 출시한 사례는 SEIN 1건이 존재하나,
+          규모(9,600대)와 설계(동시 출시, 서픽스 변형) 모두에서 <strong>카니발 효과를 분리할 수 있는 유효 사례가 아닙니다.</strong>
+          수동 가정(demand_mult 등)을 넣으면 ML이 아니라 가정을 보고 있는 것이며,
+          그 가정의 근거가 없습니다.
+        </div>
+      </div>
+
+      <div class="reason">
+        <div class="reason-num">사유 2</div>
+        <div class="reason-title">법인 간 비교 불가</div>
+        <div class="reason-body">
+          사례가 부족하더라도 "A 법인은 2모델, B 법인은 1모델" 같은 자연 실험이 있으면
+          비교 분석이 가능합니다. SEIN에서 복수 모델이 존재하나, 
+          규모가 작고 나머지 <strong>모든 법인이 동일한 단일 모델 패턴</strong>이므로
+          법인 간 차이를 활용한 유의미한 비교 설계도 불가능합니다.
+        </div>
+      </div>
+
+      <div class="reason">
+        <div class="reason-num">사유 3</div>
+        <div class="reason-title">타 해상도 사례의 직접 적용 불가</div>
+        <div class="reason-body">
+          UHD 등에서 복수 신모델 출시 사례가 있으나, FHD와는 시장 특성이 근본적으로 다릅니다.
+          FHD는 <strong>엔트리 중의 엔트리</strong>로 가격 민감도가 극도로 높고,
+          구매 동기·경쟁 구도·소비자 프로파일이 다릅니다.
+          UHD 결과를 FHD에 그대로 적용하면
+          <strong>"UHD와 FHD는 같다"는 검증 불가능한 가정</strong>을 깔고 가는 것입니다.
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <div class="callout-title">만약 수동 가정으로 시나리오를 만든다면?</div>
+      <div class="callout-text">
+        demand_mult=0.7/1.0/1.3, cannibal_rate=60/75/85% 같은 파라미터를 하드코딩하여
+        시뮬레이션을 돌릴 수는 있습니다. 그러나 이 숫자들의 근거가 없으므로
+        <strong>"가정을 바꾸면 결과도 바뀐다"는 당연한 결론</strong>밖에 나오지 않습니다.
+        의사결정자에게 이런 결과를 제시하면 "그래서 어떤 가정이 맞는 건데?"라는 질문이 돌아오며,
+        이에 답할 수 없습니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 2: 대신 할 수 있는 분석 ═══ -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title">대신 제공할 수 있는 분석</span>
+    </div>
+
+    <p>
+      "FHD 2모델의 정확한 효과"는 예측할 수 없지만,
+      의사결정에 필요한 <strong>방향성, 조건, 최소 기준</strong>은 데이터로 제시할 수 있습니다.
+    </p>
+
+    <div class="alt-stack">
+
+      <!-- Alt A -->
+      <div class="alt">
+        <div class="alt-head">
+          <div class="alt-title-wrap">
+            <div class="alt-badge a">A</div>
+            <div class="alt-title">UHD 등 타 해상도 2모델 출시 효과 레퍼런스</div>
+          </div>
+          <span class="alt-tag ref">참고 자료</span>
+        </div>
+        <div class="alt-body">
+          <p>
+            <strong>목적:</strong> FHD에 직접 적용할 수는 없지만,
+            "2모델 출시가 일반적으로 어떤 범위의 효과를 만드는지" 규모감을 제공합니다.
+          </p>
+          <p>
+            <strong>방법:</strong> SCM 데이터에서 UHD 등 타 해상도의 (법인 × 시리즈 × 연도)별로
+            신모델 수를 카운트하고, 1모델 출시 시기 vs 2모델+ 출시 시기의
+            수량/매출 변화를 비교합니다.
+          </p>
+          <p>
+            <strong>해석 가이드:</strong>
+            "UHD에서 2모델 출시 시 전체 수량이 +X% 증가, 카니발 비율은 Y% 수준이었다.
+            <strong>FHD는 가격 민감도가 더 높고 소비자 특성이 다르므로
+            이 수치를 직접 적용할 수 없으며, 상한·하한의 참고로만 사용해야 한다.</strong>"
+          </p>
+          <div class="alt-output">
+            <strong>산출물:</strong> 타 해상도 2모델 출시 사례 분석표 (법인별/시리즈별 수량·매출·카니발 비율)
+          </div>
+        </div>
+      </div>
+
+      <!-- Alt B -->
+      <div class="alt">
+        <div class="alt-head">
+          <div class="alt-title-wrap">
+            <div class="alt-badge b">B</div>
+            <div class="alt-title">FHD 시장 구조 분석 — "2모델이 의미 있을 조건"</div>
+          </div>
+          <span class="alt-tag struct">구조 진단</span>
+        </div>
+        <div class="alt-body">
+          <p>
+            <strong>목적:</strong> 2모델 출시가 의미 있으려면
+            <strong>"현재 1모델이 커버하지 못하는 수요 구간"</strong>이 존재해야 합니다.
+            그 구간이 있는지를 데이터로 확인합니다.
+          </p>
+          <p>
+            <strong>방법 (GFK 데이터 활용):</strong>
+          </p>
+          <p>
+            ① FHD 시장의 <strong>가격대별 수요 분포</strong> — 우리 모델이 커버하는 가격대 vs 경쟁사가 차지하는 가격대.
+            특정 가격 구간에서 경쟁사에 수요를 내주고 있다면, 그 구간을 타겟으로 하는 2번째 모델의 근거가 됩니다.
+          </p>
+          <p>
+            ② FHD 시장의 <strong>인치별 수요 분포</strong> — 우리가 제공하지 않는 인치 사이즈에 수요가 있는지.
+          </p>
+          <p>
+            ③ <strong>경쟁사 FHD 라인업 구성</strong> — 경쟁사가 이미 2모델+ 전략을 쓰고 있는지,
+            그 효과가 점유율에 반영되고 있는지.
+          </p>
+          <div class="alt-output">
+            <strong>산출물:</strong> FHD 시장 구조 진단 보고서 (가격대별/인치별 수요 분포, 경쟁사 라인업 비교, 미커버 구간 식별)
+          </div>
+          <div class="callout rec" style="margin-top:16px;">
+            <div class="callout-title">핵심 판단 기준</div>
+            <div class="callout-text">
+              미커버 구간이 <strong>존재</strong>하면 → 2모델이 시장 확장 효과를 만들 가능성이 있음<br>
+              미커버 구간이 <strong>없으면</strong> → 2모델이 순수 카니발만 만들 가능성이 높음
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alt C -->
+      <div class="alt">
+        <div class="alt-head">
+          <div class="alt-title-wrap">
+            <div class="alt-badge c">C</div>
+            <div class="alt-title">Break-even 시나리오 — 최소 판매 조건 역산</div>
+          </div>
+          <span class="alt-tag calc">역산 분석</span>
+        </div>
+        <div class="alt-body">
+          <p>
+            <strong>목적:</strong> "정확히 얼마나 팔릴지"는 모르지만,
+            <strong>"최소한 이만큼은 팔아야 손해가 아니다"</strong>라는 기준선은 계산할 수 있습니다.
+          </p>
+          <p>
+            <strong>방법 (총원가 데이터 활용):</strong>
+          </p>
+          <p>
+            ① <strong>신모델2 추가 비용 추정:</strong>
+            추가 모델 도입에 따른 고정비(금형, 인증, 마케팅 런칭), 재료비 단가 등을 총원가 데이터에서 유사 모델 기준으로 추정.
+          </p>
+          <p>
+            ② <strong>카니발 손실 추정:</strong>
+            기존 신모델1의 판매량이 X% 감소한다고 가정할 때 잃는 이익.
+            X는 범위로 제시 (예: 10~30%).
+          </p>
+          <p>
+            ③ <strong>Break-even 수량:</strong>
+            <code>신모델2 최소 판매량 = (추가 고정비 + 카니발 이익 손실) / 신모델2 단위 이익</code>
+          </p>
+          <div class="alt-output">
+            <strong>산출물:</strong> 카니발 비율별(10/20/30%) Break-even 수량 테이블 + 현재 FHD 총 수량 대비 비율
+          </div>
+        </div>
+      </div>
+
+      <!-- Alt D -->
+      <div class="alt">
+        <div class="alt-head">
+          <div class="alt-title-wrap">
+            <div class="alt-badge d">D</div>
+            <div class="alt-title">파일럿 운영 제안 — 데이터를 만드는 접근</div>
+          </div>
+          <span class="alt-tag action">권장 행동</span>
+        </div>
+        <div class="alt-body">
+          <p>
+            <strong>목적:</strong> 데이터로 분석이 안 되면, <strong>데이터를 만드는 것</strong>이 가장 확실한 답입니다.
+          </p>
+          <p>
+            <strong>설계:</strong>
+          </p>
+          <p>
+            ① <strong>파일럿 법인 선정:</strong> 동남아 내 1~2개 법인에서 FHD 2모델을 3~6개월 시범 운영.
+            나머지 법인은 기존 1모델 유지 → <strong>자연 실험 설계(treatment vs control)</strong>.
+          </p>
+          <p>
+            ② <strong>측정 지표:</strong> 파일럿 법인 vs 비파일럿 법인의 FHD 총 수량, 모델별 수량, ASP, 이익률 변화를
+            월별로 추적.
+          </p>
+          <p>
+            ③ <strong>의사결정 기준:</strong> 3개월 차에 중간 점검,
+            6개월 차에 전체 확대/축소/철수 판단.
+          </p>
+          <div class="alt-output">
+            <strong>산출물:</strong> 파일럿 운영 제안서 (법인 선정 기준, 측정 프레임워크, 타임라인, 의사결정 게이트)
+          </div>
+          <div class="callout rec" style="margin-top:16px;">
+            <div class="callout-title">왜 파일럿이 가장 확실한가</div>
+            <div class="callout-text">
+              "추측으로 전체 출시"보다 "소규모 실험 후 확대"가 리스크 대비 효율적입니다.
+              파일럿 결과가 나오면, 그때 비로소 FHD 고유의 카니발 비율과 수량 효과를
+              <strong>실측 데이터</strong>로 확보하게 되며,
+              이후 ML 분석이나 전체 확대 의사결정의 신뢰할 수 있는 근거가 됩니다.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 3: 사용 데이터 매핑 ═══ -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title">대안 분석별 사용 데이터</span>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:22%">대안 분석</th>
+            <th style="width:16%">① SCM</th>
+            <th style="width:16%">② 총원가</th>
+            <th style="width:16%">③ GFK</th>
+            <th style="width:30%">핵심 활용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>A</strong> UHD 레퍼런스</td>
+            <td class="status-yes">● 주 사용</td>
+            <td class="status-partial">○ 이익 참조</td>
+            <td class="status-no">—</td>
+            <td>모델 단위 카운트 + 법인별 사례 비교</td>
+          </tr>
+          <tr>
+            <td><strong>B</strong> 시장 구조 분석</td>
+            <td class="status-partial">○ 자사 라인업</td>
+            <td class="status-no">—</td>
+            <td class="status-yes">● 주 사용</td>
+            <td>경쟁사 포함 가격대/인치별 수요 분포</td>
+          </tr>
+          <tr>
+            <td><strong>C</strong> Break-even</td>
+            <td class="status-partial">○ 수량 기준</td>
+            <td class="status-yes">● 주 사용</td>
+            <td class="status-no">—</td>
+            <td>시리즈별 재료비/손익 → 단위 이익 산출</td>
+          </tr>
+          <tr>
+            <td><strong>D</strong> 파일럿 설계</td>
+            <td class="status-yes">● 법인 선정</td>
+            <td class="status-partial">○ 기준값</td>
+            <td class="status-yes">● 시장 규모</td>
+            <td>법인별 FHD 시장 크기 → 파일럿 후보 선정</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="data-compact">
+      <div class="data-block">
+        <div class="data-block-head">
+          <div class="data-block-title">① SCM 데이터</div>
+          <span class="data-block-tag" style="background:var(--teal-bg);color:var(--teal);">모델 단위</span>
+        </div>
+        <div class="data-block-body">
+          키: <code>연/월/지역/법인/모델</code> (시리즈 정보 포함)<br>
+          실적: <code>판매수량</code>, <code>매출</code><br>
+          강점: <strong>모델 단위 식별</strong> → 진짜 "몇 개 모델을 팔고 있는지" 직접 카운트 가능
+        </div>
+      </div>
+      <div class="data-block">
+        <div class="data-block-head">
+          <div class="data-block-title">② 총원가 데이터</div>
+          <span class="data-block-tag" style="background:var(--amber-bg);color:var(--amber);">시리즈 단위</span>
+        </div>
+        <div class="data-block-body">
+          키: <code>연/월/지역/시리즈</code> (법인 없음)<br>
+          실적: <code>판매수량</code>, <code>매출</code>, <code>재료비</code>, <code>손익</code><br>
+          강점: <strong>원가/이익 정보</strong> → Break-even 계산 및 마진 산출
+        </div>
+      </div>
+      <div class="data-block">
+        <div class="data-block-head">
+          <div class="data-block-title">③ GFK 데이터</div>
+          <span class="data-block-tag" style="background:var(--blue-bg);color:var(--blue);">경쟁사 포함</span>
+        </div>
+        <div class="data-block-body">
+          키: <code>연/월/지역/법인/시리즈</code><br>
+          실적: <code>판매수량</code><br>
+          강점: <strong>경쟁사 포함</strong> → FHD 시장 전체 구도, 가격대별/인치별 수요 분석
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 4: 산출물 요약 ═══ -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <span class="sec-title">산출물 요약 및 우선순위</span>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:6%">순위</th>
+            <th style="width:28%">산출물</th>
+            <th style="width:10%">대안</th>
+            <th style="width:12%">소요</th>
+            <th style="width:44%">경영진에게 답하는 질문</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td><strong>FHD 시장 구조 진단</strong></td>
+            <td>B</td>
+            <td>1~2일</td>
+            <td>"2모델이 노릴 수 있는 미커버 수요 구간이 존재하는가?"</td>
+          </tr>
+          <tr>
+            <td><strong>2</strong></td>
+            <td><strong>Break-even 수량 테이블</strong></td>
+            <td>C</td>
+            <td>1일</td>
+            <td>"최소한 얼마나 팔아야 손해가 아닌가?"</td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td><strong>UHD 레퍼런스 분석표</strong></td>
+            <td>A</td>
+            <td>2~3일</td>
+            <td>"다른 해상도에서는 2모델이 어떤 효과를 만들었는가? (참고용)"</td>
+          </tr>
+          <tr>
+            <td><strong>4</strong></td>
+            <td><strong>파일럿 운영 제안서</strong></td>
+            <td>D</td>
+            <td>1~2일</td>
+            <td>"확실한 데이터를 만들려면 어떻게 해야 하는가?"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 5: 원래 요구사항 대비 답변 가능 여부 ═══ -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <span class="sec-title">원래 요구사항 대비 답변 가능 여부</span>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:32%">원래 질문</th>
+            <th style="width:14%">직접 답변</th>
+            <th style="width:54%">대안</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2모델 출시 시 판매량은?</td>
+            <td class="status-no">불가</td>
+            <td>UHD 레퍼런스(참고) + 파일럿으로 실측</td>
+          </tr>
+          <tr>
+            <td>가격 포지셔닝 최적화는?</td>
+            <td class="status-no">불가</td>
+            <td>시장 구조 분석으로 "노릴 가격 구간" 식별</td>
+          </tr>
+          <tr>
+            <td>매출이익은 어떻게 되는가?</td>
+            <td class="status-partial">부분 가능</td>
+            <td>Break-even 역산으로 "최소 조건" 제시</td>
+          </tr>
+          <tr>
+            <td>카니발라이제이션은?</td>
+            <td class="status-no">불가</td>
+            <td>UHD 실측 카니발 범위를 참고로 제시 + 파일럿 실측</td>
+          </tr>
+          <tr>
+            <td>ML로 분석 가능한가?</td>
+            <td class="status-no">불가</td>
+            <td>학습 사례 0건 — 파일럿 후 데이터 확보 시 가능</td>
+          </tr>
+          <tr>
+            <td>엔트리급 1 vs 2모델 효과?</td>
+            <td class="status-partial">부분 가능</td>
+            <td>UHD 중 엔트리급 사례로 간접 비교 가능</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ CONCLUSION ═══ -->
+  <div class="conclusion">
+    <div class="conclusion-label">결론 및 권장안</div>
+    <div class="conclusion-text">
+      FHD 2모델 출시의 효과를 <strong>데이터 기반으로 정밀 예측하는 것은 현재 불가능</strong>합니다.
+      이는 분석 방법론의 한계가 아니라, <strong>참고할 수 있는 FHD 사례 자체가 존재하지 않기 때문</strong>입니다.
+      <br><br>
+      다만 빈손으로 의사결정할 필요는 없습니다.
+      <strong>① FHD 시장 구조 진단</strong>으로 2모델이 의미 있을 조건을 확인하고,
+      <strong>② Break-even 역산</strong>으로 최소 판매 기준선을 세우며,
+      <strong>③ UHD 레퍼런스</strong>로 규모감의 참고 범위를 제공할 수 있습니다.
+      <br><br>
+      그리고 가장 확실한 방법은 <strong>④ 1~2개 법인에서 3~6개월 파일럿을 운영</strong>하여
+      FHD 고유의 실측 데이터를 확보하는 것입니다.
+      파일럿 결과가 나오면, 그때 비로소 전체 확대 의사결정의 신뢰할 수 있는 근거를 갖게 됩니다.
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <div class="footer">
+    <span>TV사업부 · 경쟁분석팀</span>
+    <span>Internal Use Only · v4.0</span>
+  </div>
+
+</div>
+
+</body>
+</html>
